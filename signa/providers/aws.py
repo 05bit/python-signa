@@ -32,7 +32,7 @@ def sign_aws(method=None, region=None, service=None, uri=None,
         '', # no query string support yet,
         '\n'.join(['%s:%s' % (k, headers[k]) for k in headers_keys]),
         '',
-        ';'.join(headers_keys),
+        ';'.join(headers_keys).lower(),
         payload_hash,
     ]).strip()
 
