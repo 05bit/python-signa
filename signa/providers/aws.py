@@ -2,6 +2,7 @@ import datetime
 import hashlib
 import hmac
 import json
+import urllib.parse
 
 utcnow = datetime.datetime.utcnow
 
@@ -26,11 +27,20 @@ def sign_aws(method=None, region=None, service=None, uri=None,
 
     headers_keys = sorted(list(headers.keys()))
 
+    if uri:
+        uri_parts = urllib.parse.urlparse(uri)
+        path = uri_parts.path
+        query = uri_parts.query
+    else:
+        path = '/'
+        query = ''
+
     canonical_request = '\n'.join([
         method or 'GET',
-        uri or '/',
-        '', # no query string support yet,
-        '\n'.join(['%s:%s' % (k, headers[k]) for k in headers_keys]),
+        path,
+        query,
+        '\n'.join(['%s:%s' % (k.lower(), headers[k])
+            for k in headers_keys]),
         '',
         ';'.join(headers_keys).lower(),
         payload_hash,
