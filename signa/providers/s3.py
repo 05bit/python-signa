@@ -7,11 +7,11 @@ def new(method=None, region=None, bucket=None, key=None,
 
     # Details on buckets URLs:
     # http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingBucket.html
-    # if region and (region != 'us-east-1'):
-    #     headers['host'] = 's3-%s.amazonaws.com' % region
-    # else:
-    #     headers['host'] = 's3.amazonaws.com'
-    headers['host'] = 's3-%s.amazonaws.com' % region
+    # headers['host'] = 's3-%s.amazonaws.com' % region
+    if region and (region != 'us-east-1'):
+        headers['host'] = 's3-%s.amazonaws.com' % region
+    else:
+        headers['host'] = 's3.amazonaws.com'
 
     if key:
         uri = '/%s/%s' % (bucket, key)
