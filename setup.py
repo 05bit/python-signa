@@ -4,11 +4,16 @@ from setuptools import setup, find_packages
 
 __version__ = None
 
+__description__ = None
+
 with open('signa/__init__.py') as module_fp:
     for line in module_fp:
         if line.startswith('__version__'):
             __version__ = line.split('=')[1].strip().strip("'").strip('"')
             break
+
+with open('README.md', 'r') as readme_fp:
+    __description__ = readme_fp.read()
 
 setup(
     name='signa',
@@ -17,7 +22,8 @@ setup(
     author_email='rudy@05bit.com',
     url='https://github.com/05bit/python-signa',
     description=__doc__,
-    # long_description=__doc__,
+    long_description=__description__,
+    long_description_content_type='text/markdown',
     license='MIT',
     # zip_safe=False,
     packages=find_packages(),
