@@ -46,8 +46,8 @@ def sign_aws(method=None, region=None, service=None, uri=None,
         payload_hash,
     ]).strip()
 
-    # print(canonical_request)
-    # print('\n')
+    print(canonical_request)
+    print('\n')
 
     str_to_sign = '\n'.join([
         'AWS4-HMAC-SHA256',

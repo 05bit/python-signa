@@ -1,16 +1,15 @@
 import os
 # import time
 import unittest
+from dotenv import load_dotenv, find_dotenv
 import signa
 
-from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
 
 aws_region = os.environ.get('AWS_DEFAULT_REGION', 'us-east-1')
 aws_access_key = os.environ.get('AWS_ACCESS_KEY_ID')
 aws_secret_key = os.environ.get('AWS_SECRET_ACCESS_KEY')
 aws_s3_bucket = os.environ.get('AWS_S3_BUCKET')
-
 onesignal_app_id = os.environ.get('ONESIGNAL_APP_ID')
 onesignal_api_key = os.environ.get('ONESIGNAL_API_KEY')
 
@@ -24,7 +23,7 @@ class SignaTestCase(unittest.TestCase):
 
     def test_new_s3(self):
         key = 'test.txt'
-        s3_sign = signa.new(
+        _ = signa.new(
             's3',
             method='PUT',
             region=aws_region,

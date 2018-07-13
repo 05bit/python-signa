@@ -1,22 +1,17 @@
 """One lib to sign them all.
 """
-import sys
 from setuptools import setup, find_packages
 
-__version__ = '0.2'
+__version__ = None
 
-install_requires = []
-
-if ('develop' in sys.argv) or ('test' in sys.argv):
-    try:
-        import dotenv
-    except ImportError:
-        print('python-dotenv is not installed: \n'
-              'pip install python-dotenv')
-        sys.exit(1)
+with open('signa/__init__.py') as module_fp:
+    for line in module_fp:
+        if line.startswith('__version__'):
+            __version__ = line.split('=')[1].strip().strip("'").strip('"')
+            break
 
 setup(
-    name="signa",
+    name='signa',
     version=__version__,
     author="Alexey Kinëv",
     author_email='rudy@05bit.com',
@@ -27,7 +22,7 @@ setup(
     # zip_safe=False,
     packages=find_packages(),
     # include_package_data=True,
-    install_requires=install_requires,
+    install_requires=[],
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: Console',
