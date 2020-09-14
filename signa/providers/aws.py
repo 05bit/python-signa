@@ -10,8 +10,10 @@ utcnow = datetime.datetime.utcnow
 logger = get_logger(__name__)
 
 
-def sign_aws(method=None, region=None, service=None, uri=None,
-             auth=None, headers=None, payload=None):
+def aws_headers(method=None, region=None, service=None, uri=None,
+                auth=None, headers=None, payload=None):
+    headers = headers.copy() if headers else {}
+
     access_key = auth['access_key']
     secret_key = auth['secret_key']
     timestamp = utcnow().strftime('%Y%m%dT%H%M%SZ')
@@ -28,8 +30,6 @@ def sign_aws(method=None, region=None, service=None, uri=None,
     headers['x-amz-content-sha256'] = payload_hash
     headers['x-amz-date'] = timestamp
 
-    headers_keys = sorted(list(headers.keys()))
-
     if uri:
         uri_parts = urllib.parse.urlparse(uri)
         path = uri_parts.path
@@ -37,6 +37,8 @@ def sign_aws(method=None, region=None, service=None, uri=None,
     else:
         path = '/'
         query = ''
+
+    headers_keys = sorted(list(headers.keys()))
 
     canonical_request = '\n'.join([
         method or 'GET',
@@ -72,17 +74,18 @@ def sign_aws(method=None, region=None, service=None, uri=None,
 
     # logger.debug(signature)
 
-    return {
-        'Authorization':
-            'AWS4-HMAC-SHA256 '
-            'Credential=%s/%s,'
-            'SignedHeaders=%s,'
-            'Signature=%s' % (
-                access_key,
-                scope,
-                ';'.join(headers_keys),
-                signature)
-    }
+    headers['Authorization'] = (
+        'AWS4-HMAC-SHA256 '
+        'Credential=%s/%s,'
+        'SignedHeaders=%s,'
+        'Signature=%s' % (
+            access_key,
+            scope,
+            ';'.join(headers_keys),
+            signature)
+    )
+
+    return headers
 
 
 def _sha256(data):

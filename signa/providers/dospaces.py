@@ -1,4 +1,4 @@
-from .aws import sign_aws
+from .aws import aws_headers
 
 
 def new(method=None, region=None, bucket=None, key=None,
@@ -7,24 +7,19 @@ def new(method=None, region=None, bucket=None, key=None,
 
     headers['host'] = '%s.%s.digitaloceanspaces.com' % (bucket, region)
 
-    if key:
-        rel_url = '/%s' % key
-    else:
-        rel_url = '/'
+    rel_uri = ('/%s' % key) if key else '/'
 
-    signature = sign_aws(
+    headers.update(aws_headers(
         method=method,
         region=region,
         service='s3',
-        uri=rel_url,
+        uri=rel_uri,
         auth=auth,
         headers=headers,
         payload=payload
-    )
-
-    headers.update(signature)
+    ))
 
     return {
-        'url': 'https://%s%s' % (headers['host'], rel_url),
+        'url': 'https://%s%s' % (headers['host'], rel_uri),
         'headers': headers,
     }
