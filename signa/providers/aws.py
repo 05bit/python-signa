@@ -3,8 +3,11 @@ import hashlib
 import hmac
 import json
 import urllib.parse
+from signa.logger import get_logger
 
 utcnow = datetime.datetime.utcnow
+
+logger = get_logger(__name__)
 
 
 def sign_aws(method=None, region=None, service=None, uri=None,
@@ -46,8 +49,7 @@ def sign_aws(method=None, region=None, service=None, uri=None,
         payload_hash,
     ]).strip()
 
-    print(canonical_request)
-    print('\n')
+    logger.debug(canonical_request)
 
     str_to_sign = '\n'.join([
         'AWS4-HMAC-SHA256',
@@ -56,8 +58,7 @@ def sign_aws(method=None, region=None, service=None, uri=None,
         _sha256(canonical_request),
     ])
 
-    # print(str_to_sign)
-    # print('\n')
+    # logger.debug(str_to_sign)
 
     base_key = ('AWS4' + secret_key).encode('utf-8')
     date_key = _hmac(base_key, date_only)
@@ -65,13 +66,11 @@ def sign_aws(method=None, region=None, service=None, uri=None,
     date_region_service_key = _hmac(date_region_key, 's3')
     signing_key = _hmac(date_region_service_key, 'aws4_request')
 
-    # print(signing_key)
-    # print('\n')
+    # logger.debug(signing_key)
 
     signature = _hmac(signing_key, str_to_sign, hexdigest=True)
 
-    # print(signature)
-    # print('\n')
+    # logger.debug(signature)
 
     return {
         'Authorization':

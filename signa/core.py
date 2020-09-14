@@ -1,12 +1,21 @@
 from signa.providers import s3
 from signa.providers import onesignal
+from signa.providers import dospaces
+
+PROVIDERS = {
+    's3': s3.new,
+    'onesignal': onesignal.new,
+    'dospaces': dospaces.new,
+}
 
 
 def new(_provider, **kwargs):
-    if _provider == 's3':
-        return s3.new(**kwargs)
-    if _provider == 'onesignal':
-        return onesignal.new(**kwargs)
+    assert _provider in PROVIDERS, (
+        "Unknown provider: '%s', available: %s" % (
+            _provider, list(PROVIDERS.keys())
+        )
+    )
+    return PROVIDERS[_provider](**kwargs)
 
 
 class Factory:
