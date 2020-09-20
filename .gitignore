@@ -1,5 +1,6 @@
-# Local configuration
-.env
+# Junk
+.DS_Store
+.tmp
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
