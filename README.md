@@ -3,6 +3,12 @@ Signa
 
 Utility lib to create authorized requests for various services.
 
+Supported services:
+
+- AWS S3
+- Digital Ocean Spaces
+- Yandex Object storage
+
 **Currently in alpha, use with caution!**
 
 Install

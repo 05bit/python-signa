@@ -15,6 +15,12 @@ with open('signa/__init__.py') as module_fp:
 with open('README.md', 'r') as readme_fp:
     __description__ = readme_fp.read()
 
+# NOTE: Steps for publishing
+# - pip install twine wheel
+# - python setup.py sdist bdist_wheel
+# - twine check dist/*
+# - twine upload dist/*
+
 setup(
     name='signa',
     version=__version__,
