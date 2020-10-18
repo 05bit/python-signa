@@ -1,11 +1,13 @@
 from signa.providers import s3
 from signa.providers import onesignal
 from signa.providers import dospaces
+from signa.providers import yaobject
 
 PROVIDERS = {
     's3': s3.new,
     'onesignal': onesignal.new,
     'dospaces': dospaces.new,
+    'yaobject': yaobject.new,
 }
 
 
