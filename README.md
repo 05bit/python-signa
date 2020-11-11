@@ -56,7 +56,7 @@ def put_file(*, key=None, path_or_data=None, make_public=True,
     """
     ext = os.path.splitext(key)[1]
     headers = {
-        'Content-Type': CONTENT_TYPES.get(ext, 'application/octet-stream')
+        'content-type': CONTENT_TYPES.get(ext, 'application/octet-stream')
     }
     if make_public:
         headers['x-amz-acl'] = 'public-read'

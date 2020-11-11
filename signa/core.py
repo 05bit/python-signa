@@ -1,13 +1,22 @@
 from signa.providers import s3
-from signa.providers import onesignal
-from signa.providers import dospaces
-from signa.providers import yaobject
+from signa.providers import (
+    s3,
+    b2,
+    dospaces,
+    yaobject,
+
+    # TODO: why is it here, haha?
+    onesignal
+)
 
 PROVIDERS = {
     's3': s3.new,
-    'onesignal': onesignal.new,
+    'b2': b2.new,
     'dospaces': dospaces.new,
     'yaobject': yaobject.new,
+
+    # TODO: remove after deprecation cycle
+    'onesignal': onesignal.new,
 }
 
 
