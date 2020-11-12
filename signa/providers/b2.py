@@ -21,8 +21,6 @@ def new(method=None, region=None, bucket=None, key=None,
     else:
         rel_uri = '/%s' % bucket
 
-    rel_uri = ('/%s' % key) if key else '/'
-
     headers.update(aws_headers(
         method=method,
         region=region,
