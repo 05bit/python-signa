@@ -1,9 +1,9 @@
-from signa.providers import s3
 from signa.providers import (
     s3,
     b2,
     dospaces,
     yaobject,
+    oss,
 
     # TODO: why is it here, haha?
     onesignal
@@ -14,6 +14,7 @@ PROVIDERS = {
     'b2': b2.new,
     'dospaces': dospaces.new,
     'yaobject': yaobject.new,
+    'oss': oss.new,
 
     # TODO: remove after deprecation cycle
     'onesignal': onesignal.new,

@@ -1,6 +1,8 @@
 Signa
 =====
 
+[![PyPi Version](https://img.shields.io/pypi/v/signa.svg)](https://pypi.python.org/pypi/signa)
+
 Utility lib to create authorized requests for various services.
 
 Supported services:
@@ -8,6 +10,7 @@ Supported services:
 - AWS S3
 - Digital Ocean Spaces
 - Yandex Object storage
+- Alibaba Cloud OSS
 
 **Currently in alpha, use with caution!**
 
