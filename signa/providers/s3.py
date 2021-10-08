@@ -6,12 +6,12 @@ def new(method=None, region=None, bucket=None, key=None,
     headers = headers.copy() if headers else {}
 
     # Details on buckets URLs:
-    # http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingBucket.html
+    # https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingBucket.html
     # if region and (region != 'us-east-1'):
     #     headers['host'] = 's3-%s.amazonaws.com' % region
     # else:
     #     headers['host'] = 's3.amazonaws.com'
-    headers['host'] = 's3-%s.amazonaws.com' % region
+    headers['host'] = 's3.%s.amazonaws.com' % region
 
     if key:
         rel_uri = '/%s/%s' % (bucket, key)
