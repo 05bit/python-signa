@@ -3,9 +3,12 @@ name: Publish release
 on:
   release:
     types:
-      - created
       - published
-      - edited
+  push:
+    branches:
+      - 'master'
+    paths-ignore:
+      - '**/*.md'
 
 jobs:
   publish:
