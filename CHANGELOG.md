@@ -1,3 +1,8 @@
+0.2.8
+-----
+
+- Updated AWS S3 endpoint shema to [virtual-hosting style](https://docs.aws.amazon.com/AmazonS3/latest/userguide/VirtualHosting.html)
+
 0.2.1 - 0.2.7
 -------------
 
