@@ -8,7 +8,7 @@ on:
       - edited
 
 jobs:
-  deploy:
+  publish:
     runs-on: ubuntu-latest
     env:
       TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
@@ -30,3 +30,9 @@ jobs:
           python3 -m venv ./venv && \
           source venv/bin/activate && \
           pip install twine wheel
+      -
+        name: Build and release
+        run: |
+          source venv/bin/activate && \
+          python setup.py sdist bdist_wheel && \
+          twine check dist/*
