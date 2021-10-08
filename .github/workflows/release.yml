@@ -4,11 +4,11 @@ on:
   release:
     types:
       - published
-  push:
-    branches:
-      - 'master'
-    paths-ignore:
-      - '**/*.md'
+  # push:
+  #   branches:
+  #     - 'master'
+  #   paths-ignore:
+  #     - '**/*.md'
 
 jobs:
   publish:
@@ -38,4 +38,5 @@ jobs:
         run: |
           source venv/bin/activate && \
           python setup.py sdist bdist_wheel && \
-          twine check dist/*
+          twine check dist/* && \
+          twine upload dist/*
