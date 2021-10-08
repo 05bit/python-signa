@@ -5,6 +5,7 @@ on:
     types:
       - created
       - published
+      - edited
 
 jobs:
   deploy:
