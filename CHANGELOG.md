@@ -1,3 +1,9 @@
+0.3.0
+-----
+
+- Breaking change: removed Onesignal module
+- Extended S3 `s3.new()` interface with `endpoint` argument
+
 0.2.8
 -----
 

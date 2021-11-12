@@ -24,7 +24,7 @@ class SignaTestCase(unittest.TestCase):
 
     def test_new_s3(self):
         key = 'test.txt'
-        _ = signa.new(
+        result = signa.new(
             aws_s3_provider,
             method='PUT',
             region=aws_region,
@@ -38,7 +38,5 @@ class SignaTestCase(unittest.TestCase):
                 'access_key': aws_access_key,
                 'secret_key': aws_secret_key,
             })
-        self.assertTrue(True)
-
-    def test_new_onesignal(self):
-        self.assertTrue(True)
+        self.assertTrue('url' in result)
+        self.assertTrue('headers' in result)

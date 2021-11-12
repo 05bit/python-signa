@@ -4,9 +4,6 @@ from signa.providers import (
     dospaces,
     yaobject,
     oss,
-
-    # TODO: why is it here, haha?
-    onesignal
 )
 
 PROVIDERS = {
@@ -15,9 +12,6 @@ PROVIDERS = {
     'dospaces': dospaces.new,
     'yaobject': yaobject.new,
     'oss': oss.new,
-
-    # TODO: remove after deprecation cycle
-    'onesignal': onesignal.new,
 }
 
 
@@ -42,15 +36,15 @@ class Factory:
 
 
 if __name__ == '__main__':
-    import yaml
+    import os
     import json
     import requests
+    from dotenv import load_dotenv, find_dotenv
 
-    with open('config.yml', 'r') as f:
-        config = yaml.load(f)
+    load_dotenv(find_dotenv())
 
-    access_key = config['s3']['access_key']
-    secret_key = config['s3']['secret_key']
+    access_key = os.environ['AWS_ACCESS_KEY_ID']
+    secret_key = os.environ['AWS_SECRET_ACCESS_KEY']
     signed = new(
         's3',
         method='PUT',
@@ -70,6 +64,7 @@ if __name__ == '__main__':
     print('\n')
 
     r = requests.put(signed['url'], headers=signed['headers'], data=b'xxxxxxxx')
+    r.raise_for_status()
     print(r.text)
     print('\n')
 

@@ -1,16 +1,14 @@
 from .aws import aws_headers
 
 REGIONS = {
-    'us-west-000', 'us-west-001', 'us-west-002',
-    # TODO: add European region
+    'us-west-000', 'us-west-001', 'us-west-002', 'eu-central-003'
 }
 
 def new(method=None, region=None, bucket=None, key=None,
         auth=None, headers=None, payload=None):
     headers = headers.copy() if headers else {}
 
-    assert region in REGIONS
-
+    # assert region in REGIONS
     # headers['host'] = '%s.s3.%s.backblazeb2.com' % (bucket, region)
 
     # https://s3.<region>.backblazeb2.com/<bucket>

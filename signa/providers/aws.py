@@ -1,7 +1,6 @@
 import datetime
 import hashlib
 import hmac
-import json
 import urllib.parse
 from signa.logger import get_logger
 

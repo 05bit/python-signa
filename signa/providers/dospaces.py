@@ -1,25 +1,19 @@
-from .aws import aws_headers
+from typing import Any, Dict, Optional
+from . import s3
 
 
-def new(method=None, region=None, bucket=None, key=None,
-        auth=None, headers=None, payload=None):
-    headers = headers.copy() if headers else {}
-
-    headers['host'] = '%s.%s.digitaloceanspaces.com' % (bucket, region)
-
-    rel_uri = ('/%s' % key) if key else '/'
-
-    headers.update(aws_headers(
+def new(method: str, region: str = '', bucket: str = '',
+    key: str = '', auth: Optional[Dict[str, str]] = None,
+    headers: Optional[Dict[str, str]] = None,
+    payload: Any = None,
+) -> Dict[str, str]:
+    return s3.new(
         method=method,
         region=region,
-        service='s3',
-        uri=rel_uri,
+        bucket=bucket,
+        key=key,
         auth=auth,
         headers=headers,
-        payload=payload
-    ))
-
-    return {
-        'url': 'https://%s%s' % (headers['host'], rel_uri),
-        'headers': headers,
-    }
+        payload=payload,
+        endpoint='{region}.digitaloceanspaces.com'
+    )
